@@ -22,13 +22,13 @@
         <Storyboard x:Key="OpenMenu">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetName="GridMenu" Storyboard.TargetProperty="(FrameworkElement.Width)">
                 <EasingDoubleKeyFrame KeyTime="0" Value="70" />
-                <EasingDoubleKeyFrame KeyTime="0:0:0:1" Value="150" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0:0.35" Value="160" />
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
         <Storyboard x:Key="CloseMenu">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetName="GridMenu" Storyboard.TargetProperty="(FrameworkElement.Width)">
-                <EasingDoubleKeyFrame KeyTime="0" Value="100" />
-                <EasingDoubleKeyFrame KeyTime="0:0:0:1" Value="150" />
+                <EasingDoubleKeyFrame KeyTime="0" Value="160" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0:0.35" Value="70" />
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
     </Window.Resources>
@@ -43,6 +43,8 @@
     <Grid>
         <Grid
             x:Name="GridMain"
+            Width="1010"
+            Height="540"
             HorizontalAlignment="Right"
             VerticalAlignment="Bottom" />
         <Grid Height="60" VerticalAlignment="Top">
@@ -51,7 +53,7 @@
             </Grid.Effect>
             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
                 <materialDesign:PopupBox PlacementMode="BottomAndAlignRightEdges" StaysOpen="False">
-                    <StackPanel Width="150">
+                    <StackPanel Width="160">
                         <Button Content="Settings" />
                         <Button Content="Help" />
                         <Separator />
@@ -85,10 +87,7 @@
                 <DropShadowEffect BlurRadius="2" ShadowDepth="1" />
             </Grid.Effect>
             <StackPanel>
-                <Grid
-                    Height="60"
-                    Background="White"
-                    RenderTransformOrigin="0.5,0.5">
+                <Grid Height="100" RenderTransformOrigin="0.5,0.5">
                     <Grid.RenderTransform>
                         <TransformGroup>
                             <ScaleTransform />
@@ -106,7 +105,9 @@
                         VerticalAlignment="Top"
                         Background="{x:Null}"
                         BorderBrush="{x:Null}"
-                        Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}">
+                        Command="{Binding ButtonOpenMenuCommand}"
+                        Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
+                        Visibility="{Binding ButtonOpenMenuVisibility}">
                         <materialDesign:PackIcon
                             Width="25"
                             Height="25"
@@ -121,8 +122,9 @@
                         VerticalAlignment="Top"
                         Background="{x:Null}"
                         BorderBrush="{x:Null}"
+                        Command="{Binding ButtonCloseMenuCommand}"
                         Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
-                        Visibility="Collapsed">
+                        Visibility="{Binding ButtonCloseMenuVisibility}">
                         <materialDesign:PackIcon
                             Width="25"
                             Height="25"
@@ -136,7 +138,7 @@
                             <materialDesign:PackIcon
                                 Width="25"
                                 Height="25"
-                                Margin="10"
+                                Margin="15,10"
                                 Kind="Home" />
                             <TextBox
                                 Margin="20,10"
@@ -149,7 +151,7 @@
                             <materialDesign:PackIcon
                                 Width="25"
                                 Height="25"
-                                Margin="10"
+                                Margin="15,10"
                                 Kind="Pencil" />
                             <TextBox
                                 Margin="20,10"
