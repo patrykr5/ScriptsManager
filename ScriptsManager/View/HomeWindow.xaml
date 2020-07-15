@@ -47,13 +47,28 @@
             Height="540"
             HorizontalAlignment="Right"
             VerticalAlignment="Bottom" />
-        <Grid Height="60" VerticalAlignment="Top">
+        <Grid
+            Height="60"
+            VerticalAlignment="Top"
+            Background="#5c6bc0">
             <Grid.Effect>
                 <DropShadowEffect BlurRadius="1" ShadowDepth="1" />
             </Grid.Effect>
             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                <materialDesign:PopupBox PlacementMode="BottomAndAlignRightEdges" StaysOpen="False">
+                <materialDesign:PopupBox
+                    Foreground="White"
+                    PlacementMode="BottomAndAlignRightEdges"
+                    StaysOpen="False">
                     <StackPanel Width="160">
+                        <StackPanel
+                            Margin="10"
+                            HorizontalAlignment="Center"
+                            Orientation="Horizontal">
+                            <TextBlock Margin="0,0,10,0" Text="Light" />
+                            <ToggleButton x:Name="ButtonThemeAppToggle" IsChecked="{Binding IsCheckedDarkModeToggle}" />
+                            <TextBlock Margin="10,0" Text="Dark" />
+                        </StackPanel>
+                        <Separator />
                         <Button Content="Settings" />
                         <Button Content="Help" />
                         <Separator />
@@ -65,6 +80,7 @@
                     Background="{x:Null}"
                     BorderBrush="{x:Null}"
                     Command="{Binding CloseCommand}"
+                    Foreground="White"
                     Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}">
                     <materialDesign:PackIcon
                         Width="25"
@@ -77,14 +93,16 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 FontSize="22"
+                Foreground="White"
                 Text="Scripts Manager" />
         </Grid>
         <Grid
             x:Name="GridMenu"
             Width="70"
-            HorizontalAlignment="Left">
+            HorizontalAlignment="Left"
+            Background="{Binding GridMenuBackgroundColor}">
             <Grid.Effect>
-                <DropShadowEffect BlurRadius="2" ShadowDepth="1" />
+                <DropShadowEffect BlurRadius="{Binding GridMenuBlurRadius}" ShadowDepth="{Binding GridMenuShadowDepth}" />
             </Grid.Effect>
             <StackPanel>
                 <Grid Height="100" RenderTransformOrigin="0.5,0.5">
@@ -111,6 +129,7 @@
                         <materialDesign:PackIcon
                             Width="25"
                             Height="25"
+                            Foreground="{Binding ForegroundColorForMenu}"
                             Kind="Menu" />
                     </Button>
                     <Button
@@ -128,9 +147,10 @@
                         <materialDesign:PackIcon
                             Width="25"
                             Height="25"
+                            Foreground="{Binding ForegroundColorForMenu}"
                             Kind="ArrowLeft" />
                     </Button>
-                    <Image Height="60" VerticalAlignment="Bottom" />
+                    <Image Height="60" VerticalAlignment="Top" />
                 </Grid>
                 <ListView x:Name="ListViewMenu" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                     <ListViewItem x:Name="ItemHome" Height="60">
@@ -139,10 +159,12 @@
                                 Width="25"
                                 Height="25"
                                 Margin="15,10"
+                                Foreground="{Binding ForegroundColorForMenu}"
                                 Kind="Home" />
                             <TextBox
                                 Margin="20,10"
                                 VerticalAlignment="Center"
+                                Foreground="{Binding ForegroundColorForMenu}"
                                 Text="Home" />
                         </StackPanel>
                     </ListViewItem>
@@ -152,10 +174,12 @@
                                 Width="25"
                                 Height="25"
                                 Margin="15,10"
+                                Foreground="{Binding ForegroundColorForMenu}"
                                 Kind="Pencil" />
                             <TextBox
                                 Margin="20,10"
                                 VerticalAlignment="Center"
+                                Foreground="{Binding ForegroundColorForMenu}"
                                 Text="Manage" />
                         </StackPanel>
                     </ListViewItem>
