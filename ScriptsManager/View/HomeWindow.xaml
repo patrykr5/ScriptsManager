@@ -21,14 +21,14 @@
     <Window.Resources>
         <Storyboard x:Key="OpenMenu">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetName="GridMenu" Storyboard.TargetProperty="(FrameworkElement.Width)">
-                <EasingDoubleKeyFrame KeyTime="0" Value="70" />
+                <EasingDoubleKeyFrame KeyTime="0" Value="0" />
                 <EasingDoubleKeyFrame KeyTime="0:0:0:0.35" Value="160" />
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
         <Storyboard x:Key="CloseMenu">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetName="GridMenu" Storyboard.TargetProperty="(FrameworkElement.Width)">
                 <EasingDoubleKeyFrame KeyTime="0" Value="160" />
-                <EasingDoubleKeyFrame KeyTime="0:0:0:0.35" Value="70" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0:0.35" Value="0" />
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
     </Window.Resources>
@@ -54,6 +54,25 @@
             <Grid.Effect>
                 <DropShadowEffect BlurRadius="1" ShadowDepth="1" />
             </Grid.Effect>
+            <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                <Button
+                    x:Name="ButtonOpenMenu"
+                    Width="60"
+                    Height="60"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    Background="{x:Null}"
+                    BorderBrush="{x:Null}"
+                    Command="{Binding ButtonOpenMenuCommand}"
+                    Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
+                    Visibility="{Binding ButtonOpenMenuVisibility}">
+                    <materialDesign:PackIcon
+                        Width="25"
+                        Height="25"
+                        Foreground="{Binding ForegroundColorForMenu}"
+                        Kind="Menu" />
+                </Button>
+            </StackPanel>
             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
                 <materialDesign:PopupBox
                     Foreground="White"
@@ -65,7 +84,10 @@
                             HorizontalAlignment="Center"
                             Orientation="Horizontal">
                             <TextBlock Margin="0,0,10,0" Text="Light" />
-                            <ToggleButton x:Name="ButtonThemeAppToggle" IsChecked="{Binding IsCheckedDarkModeToggle}" />
+                            <ToggleButton
+                                x:Name="ButtonThemeAppToggle"
+                                IsChecked="{Binding IsCheckedDarkModeToggle}"
+                                IsEnabled="False" />
                             <TextBlock Margin="10,0" Text="Dark" />
                         </StackPanel>
                         <Separator />
@@ -98,9 +120,10 @@
         </Grid>
         <Grid
             x:Name="GridMenu"
-            Width="70"
+            Width="0"
+            Margin="{Binding GridMenuMargin}"
             HorizontalAlignment="Left"
-            Background="{Binding GridMenuBackgroundColor}">
+            Background="#FBF9FC">
             <Grid.Effect>
                 <DropShadowEffect BlurRadius="{Binding GridMenuBlurRadius}" ShadowDepth="{Binding GridMenuShadowDepth}" />
             </Grid.Effect>
@@ -114,24 +137,6 @@
                             <TranslateTransform />
                         </TransformGroup>
                     </Grid.RenderTransform>
-                    <Button
-                        x:Name="ButtonOpenMenu"
-                        Width="60"
-                        Height="60"
-                        Margin="5"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Top"
-                        Background="{x:Null}"
-                        BorderBrush="{x:Null}"
-                        Command="{Binding ButtonOpenMenuCommand}"
-                        Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
-                        Visibility="{Binding ButtonOpenMenuVisibility}">
-                        <materialDesign:PackIcon
-                            Width="25"
-                            Height="25"
-                            Foreground="{Binding ForegroundColorForMenu}"
-                            Kind="Menu" />
-                    </Button>
                     <Button
                         x:Name="ButtonCloseMenu"
                         Width="60"
@@ -164,6 +169,7 @@
                             <TextBox
                                 Margin="20,10"
                                 VerticalAlignment="Center"
+                                FontSize="14"
                                 Foreground="{Binding ForegroundColorForMenu}"
                                 Text="Home" />
                         </StackPanel>
@@ -179,6 +185,7 @@
                             <TextBox
                                 Margin="20,10"
                                 VerticalAlignment="Center"
+                                FontSize="14"
                                 Foreground="{Binding ForegroundColorForMenu}"
                                 Text="Manage" />
                         </StackPanel>

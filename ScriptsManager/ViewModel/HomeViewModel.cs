@@ -3,7 +3,6 @@ using GalaSoft.MvvmLight.Command;
 using MaterialDesignThemes.Wpf;
 using ScriptsManager.Helper;
 using System;
-using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -16,10 +15,10 @@ namespace ScriptsManager.ViewModel
         private Visibility _buttonCloseMenuVisibility;
         private bool _isCheckedDarkModeToggle;
         private readonly PaletteHelper _paletteHelper = new PaletteHelper();
-        private SolidColorBrush _gridMenuBackgroundColor;
         private SolidColorBrush _foregroundColorForMenu;
         private double _gridMenuBlurRadius;
         private double _gridMenuShadowDepth;
+        private Thickness _gridMenuMargin;
 
         public ICommand CloseCommand { get; }
         public ICommand ButtonOpenMenuCommand { get; set; }
@@ -67,21 +66,19 @@ namespace ScriptsManager.ViewModel
 
         private void SetSettingsForGridMenu(bool whetherMenuIsOpening = false)
         {
-            SolidColorBrush solidColorBrushWhite = new SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 255, 255));
-
             if (whetherMenuIsOpening)
             {
-                GridMenuBackgroundColor = solidColorBrushWhite;
                 ForegroundColorForMenu = new SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 0, 0));
                 GridMenuBlurRadius = 8;
                 GridMenuShadowDepth = 1;
+                GridMenuMargin = new Thickness();
             }
             else
             {
-                GridMenuBackgroundColor = new SolidColorBrush(System.Windows.Media.Color.FromRgb(92, 107, 192));
-                ForegroundColorForMenu = solidColorBrushWhite;
+                ForegroundColorForMenu = new SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 255, 255));
                 GridMenuBlurRadius = 0;
                 GridMenuShadowDepth = 0;
+                GridMenuMargin = new Thickness(0, 60, 0, 0);
             }
         }
 
@@ -128,20 +125,6 @@ namespace ScriptsManager.ViewModel
             }
         }
 
-        public SolidColorBrush GridMenuBackgroundColor
-        {
-            get => _gridMenuBackgroundColor;
-            set
-            {
-                if (_gridMenuBackgroundColor == value)
-                {
-                    return;
-                }
-                _gridMenuBackgroundColor = value;
-                RaisePropertyChanged();
-            }
-        }
-
         public SolidColorBrush ForegroundColorForMenu
         {
             get => _foregroundColorForMenu;
@@ -180,6 +163,20 @@ namespace ScriptsManager.ViewModel
                     return;
                 }
                 _gridMenuShadowDepth = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public Thickness GridMenuMargin
+        {
+            get => _gridMenuMargin;
+            set
+            {
+                if (_gridMenuMargin == value)
+                {
+                    return;
+                }
+                _gridMenuMargin = value;
                 RaisePropertyChanged();
             }
         }
