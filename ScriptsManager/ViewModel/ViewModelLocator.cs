@@ -17,9 +17,11 @@ namespace ScriptsManager.ViewModel
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
             SimpleIoc.Default.Register<HomeViewModel>();
+            SimpleIoc.Default.Register<ManageViewModel>();
         }
 
         public HomeViewModel HomeViewModel => ServiceLocator.Current.GetInstance<HomeViewModel>();
+        public ManageViewModel ManageViewModel => ServiceLocator.Current.GetInstance<ManageViewModel>();
 
         public static void Cleanup()
         {

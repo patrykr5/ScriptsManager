@@ -169,6 +169,7 @@
                             <TextBox
                                 Margin="20,10"
                                 VerticalAlignment="Center"
+                                Focusable="False"
                                 FontSize="14"
                                 Foreground="{Binding ForegroundColorForMenu}"
                                 Text="Home" />
@@ -185,6 +186,7 @@
                             <TextBox
                                 Margin="20,10"
                                 VerticalAlignment="Center"
+                                Focusable="False"
                                 FontSize="14"
                                 Foreground="{Binding ForegroundColorForMenu}"
                                 Text="Manage" />
