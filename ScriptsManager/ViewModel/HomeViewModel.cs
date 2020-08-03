@@ -1,7 +1,7 @@
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using MaterialDesignThemes.Wpf;
-using ScriptsManager.Helper;
+using ScriptsManager.Extensions;
 using System;
 using System.Windows;
 using System.Windows.Input;
@@ -19,18 +19,40 @@ namespace ScriptsManager.ViewModel
         private double _gridMenuBlurRadius;
         private double _gridMenuShadowDepth;
         private Thickness _gridMenuMargin;
+        private ViewModelBase _currentViewModel;
 
         public ICommand CloseCommand { get; }
         public ICommand ButtonOpenMenuCommand { get; set; }
         public ICommand ButtonCloseMenuCommand { get; set; }
+        public ICommand ButtonItemHomeMenuCommand { get; set; }
+        public ICommand ButtonItemManageMenuCommand { get; set; }
+        public ICommand GridMenuLostFocusCommand { get; set; }
 
         public HomeViewModel()
         {
             CloseCommand = new RelayCommand(CloseApplication);
             ButtonOpenMenuCommand = new RelayCommand(ButtonOpenMenu);
             ButtonCloseMenuCommand = new RelayCommand(ButtonCloseMenu);
+            ButtonItemHomeMenuCommand = new RelayCommand(ButtonItemHomeMenu);
+            ButtonItemManageMenuCommand = new RelayCommand(ButtonItemManageMenu);
+            GridMenuLostFocusCommand = new RelayCommand(GridMenuLostFocus);
             ButtonCloseMenuVisibility = Visibility.Collapsed;
             SetSettingsForGridMenu();
+        }
+
+        private void GridMenuLostFocus()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void ButtonItemManageMenu()
+        {
+            CurrentViewModel = new ManageViewModel();
+        }
+
+        private void ButtonItemHomeMenu()
+        {
+            CurrentViewModel = this;
         }
 
         private void SetThemeApplication()
@@ -177,6 +199,20 @@ namespace ScriptsManager.ViewModel
                     return;
                 }
                 _gridMenuMargin = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public ViewModelBase CurrentViewModel
+        {
+            get => _currentViewModel;
+            set
+            {
+                if (_currentViewModel == value)
+                {
+                    return;
+                }
+                _currentViewModel = value;
                 RaisePropertyChanged();
             }
         }

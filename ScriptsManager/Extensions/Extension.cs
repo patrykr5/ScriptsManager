@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace ScriptsManager.Helper
+namespace ScriptsManager.Extensions
 {
     public static class Extension
     {
