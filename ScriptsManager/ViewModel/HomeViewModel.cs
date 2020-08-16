@@ -13,6 +13,7 @@ namespace ScriptsManager.ViewModel
     {
         private Visibility _buttonOpenMenuVisibility;
         private Visibility _buttonCloseMenuVisibility;
+        private Visibility _menuItemsVisibility;
         private bool _isCheckedDarkModeToggle;
         private readonly PaletteHelper _paletteHelper = new PaletteHelper();
         private SolidColorBrush _foregroundColorForMenu;
@@ -37,6 +38,7 @@ namespace ScriptsManager.ViewModel
             ButtonItemManageMenuCommand = new RelayCommand(ButtonItemManageMenu);
             GridMenuLostFocusCommand = new RelayCommand(GridMenuLostFocus);
             ButtonCloseMenuVisibility = Visibility.Collapsed;
+            SetForegroundColorForMenu(_isCheckedDarkModeToggle);
             SetSettingsForGridMenu();
         }
 
@@ -61,6 +63,7 @@ namespace ScriptsManager.ViewModel
             IBaseTheme baseTheme = _isCheckedDarkModeToggle ? new MaterialDesignDarkTheme() : (IBaseTheme)new MaterialDesignLightTheme();
             theme.SetBaseTheme(baseTheme);
             _paletteHelper.SetTheme(theme);
+            SetForegroundColorForMenu(_isCheckedDarkModeToggle);
         }
 
         private void ButtonCloseMenu()
@@ -90,14 +93,14 @@ namespace ScriptsManager.ViewModel
         {
             if (whetherMenuIsOpening)
             {
-                ForegroundColorForMenu = new SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 0, 0));
+                MenuItemsVisibility = Visibility.Visible;
                 GridMenuBlurRadius = 8;
                 GridMenuShadowDepth = 1;
                 GridMenuMargin = new Thickness();
             }
             else
             {
-                ForegroundColorForMenu = new SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 255, 255));
+                MenuItemsVisibility = Visibility.Collapsed;
                 GridMenuBlurRadius = 0;
                 GridMenuShadowDepth = 0;
                 GridMenuMargin = new Thickness(0, 60, 0, 0);
@@ -215,6 +218,26 @@ namespace ScriptsManager.ViewModel
                 _currentViewModel = value;
                 RaisePropertyChanged();
             }
+        }
+
+        public Visibility MenuItemsVisibility
+        {
+            get => _menuItemsVisibility;
+            set
+            {
+                if (_menuItemsVisibility == value)
+                {
+                    return;
+                }
+                _menuItemsVisibility = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private void SetForegroundColorForMenu(bool whetherSetColorForDarkTheme)
+        {
+            System.Windows.Media.Color color = whetherSetColorForDarkTheme ? System.Windows.Media.Color.FromRgb(255, 255, 255) : System.Windows.Media.Color.FromRgb(0, 0, 0);
+            ForegroundColorForMenu = new SolidColorBrush(color);
         }
     }
 }
