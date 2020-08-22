@@ -10,15 +10,15 @@ namespace ScriptsManager.ViewModel
 {
     public class ManageViewModel : ViewModelBase
     {
-        public ICommand AddCommand { get; private set; }
+        public ICommand AddCardCommand { get; private set; }
         public ObservableCollection<ScriptCard> ScriptCardCollection { get; private set; } = new ObservableCollection<ScriptCard>();
 
         public ManageViewModel()
         {
-            AddCommand = new RelayCommand(Add);
+            AddCardCommand = new RelayCommand(AddCard);
         }
 
-        private void Add()
+        private void AddCard()
         {
             const int numberOfScriptCardToAdd = 1;
 
@@ -28,18 +28,18 @@ namespace ScriptsManager.ViewModel
                 ScriptName = "Script name",
                 FilePath = "FileTestPath",
                 LastRunDate = DateTime.Now,
-                EditCommand = new RelayCommand<int>(rc => Edit(rc)),
-                DeleteCommand = new RelayCommand<int>(rc => Delete(rc))
+                EditScriptCardCommand = new RelayCommand<int>(rc => EditScriptCard(rc)),
+                DeleteScriptCardCommand = new RelayCommand<int>(rc => DeleteScriptCard(rc))
             });
         }
 
-        private void Delete(int id)
+        private void DeleteScriptCard(int id)
         {
             ScriptCard scriptCardToDelete = GetScriptCardById(id);
             ScriptCardCollection.Remove(scriptCardToDelete);
         }
 
-        private void Edit(int id)
+        private void EditScriptCard(int id)
         {
             throw new NotImplementedException();
         }

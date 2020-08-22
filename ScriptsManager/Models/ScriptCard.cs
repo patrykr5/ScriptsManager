@@ -9,7 +9,7 @@ namespace ScriptsManager.Models
         public string ScriptName { get; set; }
         public string FilePath { get; set; }
         public DateTime LastRunDate { get; set; }
-        public ICommand EditCommand { get; set; }
-        public ICommand DeleteCommand { get; set; }
+        public ICommand EditScriptCardCommand { get; set; }
+        public ICommand DeleteScriptCardCommand { get; set; }
     }
 }

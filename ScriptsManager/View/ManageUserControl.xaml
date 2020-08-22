@@ -25,7 +25,7 @@
             Margin="10,10,10,0">
             <Button
                 Width="100"
-                Command="{Binding AddCommand}"
+                Command="{Binding AddCardCommand}"
                 Content="Add"
                 Style="{StaticResource MaterialDesignRaisedDarkButton}"
                 ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" />
@@ -72,11 +72,11 @@
                                     <materialDesign:PopupBox Padding="2,0,2,0" HorizontalAlignment="Right">
                                         <StackPanel>
                                             <Button
-                                                Command="{Binding EditCommand}"
+                                                Command="{Binding EditScriptCardCommand}"
                                                 CommandParameter="{Binding Id}"
                                                 Content="Edit" />
                                             <Button
-                                                Command="{Binding DeleteCommand}"
+                                                Command="{Binding DeleteScriptCardCommand}"
                                                 CommandParameter="{Binding Id}"
                                                 Content="Delete" />
                                         </StackPanel>
