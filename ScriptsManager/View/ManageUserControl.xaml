@@ -15,78 +15,91 @@
             <RowDefinition Height="50" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <WrapPanel
-            Grid.Row="0"
-            Grid.ColumnSpan="2"
-            Margin="10,10,10,0">
+
+        <WrapPanel Grid.Row="0" Margin="10,10,10,0">
             <Button
                 Width="100"
                 Command="{Binding AddCardCommand}"
-                Content="Add"
+                Content="Add card"
                 Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" />
+                ToolTip="Add card and configure path to script." />
+            <Button
+                Width="100"
+                Margin="10,0,0,0"
+                Content="Add many"
+                IsEnabled="False"
+                Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                ToolTip="Add many script from chosen location.&#x0a;The selected scripts will be automatically transferred to the cards." />
         </WrapPanel>
-        <WrapPanel
+
+        <ScrollViewer
             Grid.Row="1"
-            Grid.ColumnSpan="2"
-            Margin="10,0,10,10">
-            <ItemsControl ItemsSource="{Binding ScriptCardCollection}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <materialDesign:Card
-                            Width="200"
-                            Margin="0,10,10,10"
-                            Padding="0"
-                            Background="#e6ceff"
-                            Foreground="Black">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>
-                                <TextBlock
-                                    Grid.Row="0"
-                                    Margin="16,16,16,4"
-                                    FontSize="16"
-                                    Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-                                    Text="{Binding ScriptName}" />
-                                <Separator Grid.Row="1" Style="{StaticResource MaterialDesignLightSeparator}" />
-                                <TextBlock
-                                    Grid.Row="2"
-                                    Margin="16,0,16,8"
-                                    HorizontalAlignment="Left"
-                                    VerticalAlignment="Center"
-                                    FontSize="12"
-                                    Style="{StaticResource MaterialDesignBody2TextBlock}"
-                                    Text="{Binding LastRunDate, StringFormat={}{0:HH:mm dd/MM/yyyy}}" />
-                                <StackPanel
-                                    Grid.Row="2"
-                                    Margin="16,0,16,8"
-                                    HorizontalAlignment="Right"
-                                    Orientation="Horizontal">
-                                    <materialDesign:PopupBox Padding="2,0,2,0" HorizontalAlignment="Right">
-                                        <StackPanel>
-                                            <Button
-                                                Command="{Binding EditScriptCardCommand}"
-                                                CommandParameter="{Binding Id}"
-                                                Content="Edit" />
-                                            <Button
-                                                Command="{Binding DeleteScriptCardCommand}"
-                                                CommandParameter="{Binding Id}"
-                                                Content="Delete" />
-                                        </StackPanel>
-                                    </materialDesign:PopupBox>
-                                </StackPanel>
-                            </Grid>
-                        </materialDesign:Card>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </WrapPanel>
+            HorizontalScrollBarVisibility="Disabled"
+            VerticalScrollBarVisibility="Auto">
+            <WrapPanel Margin="10,0,10,10" Orientation="Horizontal">
+                <ItemsControl ItemsSource="{Binding ScriptCardCollection}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <materialDesign:Card
+                                Width="200"
+                                Margin="0,10,10,10"
+                                Padding="0"
+                                Background="#c7a4ff"
+                                Foreground="Black">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <TextBlock
+                                        Grid.Row="0"
+                                        Margin="16,16,16,4"
+                                        FontSize="16"
+                                        Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                                        Text="{Binding ScriptName}" />
+                                    <Separator Grid.Row="1" Style="{StaticResource MaterialDesignLightSeparator}" />
+                                    <TextBlock
+                                        Grid.Row="2"
+                                        Margin="16,0,16,8"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        FontSize="12"
+                                        Style="{StaticResource MaterialDesignBody2TextBlock}"
+                                        Text="{Binding CreateDate, StringFormat={}{0:HH:mm dd/MM/yyyy}}" />
+                                    <StackPanel
+                                        Grid.Row="2"
+                                        Margin="16,0,16,8"
+                                        HorizontalAlignment="Right"
+                                        Orientation="Horizontal">
+                                        <materialDesign:PopupBox Padding="2,0,2,0" HorizontalAlignment="Right">
+                                            <StackPanel>
+                                                <Button
+                                                    Command="{Binding RunScriptCommand}"
+                                                    CommandParameter="{Binding Id}"
+                                                    Content="Run" />
+                                                <Button
+                                                    Command="{Binding ChangePathToScriptCommand}"
+                                                    CommandParameter="{Binding Id}"
+                                                    Content="Change path to script" />
+                                                <Button
+                                                    Command="{Binding DeleteScriptCardCommand}"
+                                                    CommandParameter="{Binding Id}"
+                                                    Content="Delete card" />
+                                            </StackPanel>
+                                        </materialDesign:PopupBox>
+                                    </StackPanel>
+                                </Grid>
+                            </materialDesign:Card>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </WrapPanel>
+        </ScrollViewer>
     </Grid>
 </UserControl>

@@ -10,7 +10,7 @@
     xmlns:view="clr-namespace:ScriptsManager.View"
     xmlns:viewModel="clr-namespace:ScriptsManager.ViewModel"
     Title="HomeWindow"
-    Width="1080"
+    Width="1090"
     Height="600"
     Background="{DynamicResource MaterialDesignPaper}"
     DataContext="{Binding HomeViewModel, Source={StaticResource Locator}}"
@@ -52,12 +52,13 @@
     <Grid>
         <Grid
             x:Name="GridMain"
-            Width="1080"
+            Width="1090"
             Height="540"
             HorizontalAlignment="Right"
             VerticalAlignment="Bottom">
             <ContentControl Content="{Binding CurrentViewModel}" />
         </Grid>
+
         <Grid
             Height="60"
             VerticalAlignment="Top"
@@ -65,6 +66,7 @@
             <Grid.Effect>
                 <DropShadowEffect BlurRadius="1" ShadowDepth="1" />
             </Grid.Effect>
+
             <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
                 <Button
                     x:Name="ButtonOpenMenu"
@@ -84,6 +86,7 @@
                         Kind="Menu" />
                 </Button>
             </StackPanel>
+
             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
                 <materialDesign:PopupBox
                     Foreground="White"
@@ -99,8 +102,8 @@
                             <TextBlock Margin="10,0" Text="Dark" />
                         </StackPanel>
                         <Separator />
-                        <Button Content="Settings" />
-                        <Button Content="Help" />
+                        <Button Content="Settings" IsEnabled="False" />
+                        <Button Content="Help" IsEnabled="False" />
                         <Separator />
                         <Button Command="{Binding CloseCommand}" Content="Close app" />
                     </StackPanel>
@@ -119,6 +122,7 @@
                         Kind="WindowClose" />
                 </Button>
             </StackPanel>
+
             <TextBlock
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
@@ -126,6 +130,7 @@
                 Foreground="White"
                 Text="Scripts Manager" />
         </Grid>
+
         <Grid
             x:Name="GridMenu"
             Width="0"
@@ -140,6 +145,7 @@
                     <cmd:EventToCommand Command="{Binding GridMenuLostFocusCommand}" PassEventArgsToCommand="True" />
                 </i:EventTrigger>
             </i:Interaction.Triggers>
+
             <StackPanel Visibility="{Binding MenuItemsVisibility}">
                 <Grid Height="100" RenderTransformOrigin="0.5,0.5">
                     <Grid.RenderTransform>
@@ -170,6 +176,7 @@
                     </Button>
                     <Image Height="60" VerticalAlignment="Top" />
                 </Grid>
+
                 <ListView x:Name="ListViewMenu" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                     <ListViewItem x:Name="ItemHome" Height="60">
                         <StackPanel Orientation="Horizontal">

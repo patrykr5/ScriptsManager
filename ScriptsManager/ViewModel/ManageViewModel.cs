@@ -3,6 +3,7 @@ using GalaSoft.MvvmLight.Command;
 using ScriptsManager.Models;
 using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows.Input;
 
@@ -27,10 +28,21 @@ namespace ScriptsManager.ViewModel
                 Id = ScriptCardCollection.Count + numberOfScriptCardToAdd,
                 ScriptName = "Script name",
                 FilePath = "FileTestPath",
-                LastRunDate = DateTime.Now,
-                EditScriptCardCommand = new RelayCommand<int>(rc => EditScriptCard(rc)),
-                DeleteScriptCardCommand = new RelayCommand<int>(rc => DeleteScriptCard(rc))
+                CreateDate = DateTime.Now,
+                ChangePathToScriptCommand = new RelayCommand<int>(rc => ChangePathToScript(rc)),
+                DeleteScriptCardCommand = new RelayCommand<int>(rc => DeleteScriptCard(rc)),
+                RunScriptCommand = new RelayCommand<int>(rc => RunScript(rc))
             });
+        }
+
+        private void RunScript(int id)
+        {
+            string filePathOfSelectedScriptCard = GetScriptCardById(id).FilePath;
+
+            Process process = new Process();
+            process.StartInfo.FileName = filePathOfSelectedScriptCard;
+            process.StartInfo.Verb = "runas";
+            process.Start();
         }
 
         private void DeleteScriptCard(int id)
@@ -39,7 +51,7 @@ namespace ScriptsManager.ViewModel
             ScriptCardCollection.Remove(scriptCardToDelete);
         }
 
-        private void EditScriptCard(int id)
+        private void ChangePathToScript(int id)
         {
             throw new NotImplementedException();
         }
