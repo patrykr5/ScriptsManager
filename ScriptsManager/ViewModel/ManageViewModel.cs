@@ -38,10 +38,11 @@ namespace ScriptsManager.ViewModel
         private void RunScript(int id)
         {
             string filePathOfSelectedScriptCard = GetScriptCardById(id).FilePath;
+            const string runAsAdmin = "runas";
 
             Process process = new Process();
             process.StartInfo.FileName = filePathOfSelectedScriptCard;
-            process.StartInfo.Verb = "runas";
+            process.StartInfo.Verb = runAsAdmin;
             process.Start();
         }
 
@@ -59,6 +60,21 @@ namespace ScriptsManager.ViewModel
         private ScriptCard GetScriptCardById(int id)
         {
             return ScriptCardCollection.First(x => x.Id == id);
+        }
+
+        private bool LoadAllScript()
+        {
+            throw new NotImplementedException();
+        }
+
+        private bool SaveScriptById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        private bool DeleteScriptById(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

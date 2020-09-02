@@ -1,8 +1,11 @@
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using MaterialDesignThemes.Wpf;
+using ScriptsManager.Enums;
 using ScriptsManager.Extensions;
+using ScriptsManager.Models;
 using System;
+using System.IO;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -22,12 +25,12 @@ namespace ScriptsManager.ViewModel
         private Thickness _gridMenuMargin;
         private ViewModelBase _currentViewModel;
 
-        public ICommand CloseCommand { get; }
-        public ICommand ButtonOpenMenuCommand { get; set; }
-        public ICommand ButtonCloseMenuCommand { get; set; }
-        public ICommand ButtonItemHomeMenuCommand { get; set; }
-        public ICommand ButtonItemManageMenuCommand { get; set; }
-        public ICommand GridMenuLostFocusCommand { get; set; }
+        public ICommand CloseCommand { get; private set; }
+        public ICommand ButtonOpenMenuCommand { get; private set; }
+        public ICommand ButtonCloseMenuCommand { get; private set; }
+        public ICommand ButtonItemHomeMenuCommand { get; private set; }
+        public ICommand ButtonItemManageMenuCommand { get; private set; }
+        public ICommand GridMenuLostFocusCommand { get; private set; }
 
         public HomeViewModel()
         {
@@ -38,6 +41,7 @@ namespace ScriptsManager.ViewModel
             ButtonItemManageMenuCommand = new RelayCommand(ButtonItemManageMenu);
             GridMenuLostFocusCommand = new RelayCommand(GridMenuLostFocus);
             ButtonCloseMenuVisibility = Visibility.Collapsed;
+            SaveInformationOfScriptDataFileInApplicationProperties();
             SetForegroundColorForMenu(_isCheckedDarkModeToggle);
             SetSettingsForGridMenu();
         }
@@ -238,6 +242,44 @@ namespace ScriptsManager.ViewModel
         {
             System.Windows.Media.Color color = whetherSetColorForDarkTheme ? System.Windows.Media.Color.FromRgb(255, 255, 255) : System.Windows.Media.Color.FromRgb(0, 0, 0);
             ForegroundColorForMenu = new SolidColorBrush(color);
+        }
+
+        private OperationInfo CheckIfScriptDataFileExists()
+        {
+            const string filePath = @"Data\scriptData.json";
+            OperationInfo operationInfo = new OperationInfo()
+            {
+                OperationStatus = OperationStatusEnum.FileDoesNotExists,
+                Message = filePath
+            };
+
+            string pathOfscriptDataFile = Path.Combine(Environment.CurrentDirectory, filePath);
+            if (File.Exists(pathOfscriptDataFile))
+            {
+                operationInfo.OperationStatus = OperationStatusEnum.FileExists;
+                operationInfo.Message = pathOfscriptDataFile;
+            }
+
+            return operationInfo;
+        }
+
+        private void CreateScriptOfDataFile(string filePath)
+        {
+            //TODO Save user properties to another file
+            //TODO Create folder if it doesn't exists
+            File.Create(filePath);
+        }
+
+        private void SaveInformationOfScriptDataFileInApplicationProperties()
+        {
+            OperationInfo scriptData = CheckIfScriptDataFileExists();
+            if (scriptData.OperationStatus != OperationStatusEnum.FileExists)
+            {
+                CreateScriptOfDataFile(scriptData.Message);
+                scriptData = CheckIfScriptDataFileExists();
+            }
+
+            Properties.Settings.Default.ScriptDataPath = scriptData.Message;
         }
     }
 }
